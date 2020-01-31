@@ -28,7 +28,7 @@
   {:level        :easy
    :use          '[if-let]
    :implemented? false}
-  [x])
+  [x] (if-let [value x] x :ashwathama))
 
 (defn duplicate-first
   "Returns coll with the first element duplicated.
