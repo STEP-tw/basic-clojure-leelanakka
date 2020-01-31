@@ -7,3 +7,9 @@
     (is (= 2 (safe-divide 4 2))))
   (testing "zero denominator"
     (is (nil? (safe-divide 3 0)))))
+
+(deftest informative-division
+  (testing "non zero denominator"
+    (is (= 5 (informative-divide 10 2))))
+  (testing "zero denominator"
+    (is (= :infinite? (informative-divide 2 0)))))
