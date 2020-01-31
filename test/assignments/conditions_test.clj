@@ -13,3 +13,11 @@
     (is (= 5 (informative-divide 10 2))))
   (testing "zero denominator"
     (is (= :infinite? (informative-divide 2 0)))))
+
+(deftest harishchandra-test
+  (testing "truthy values to return themselves"
+    (is (= 2 (harishchandra 2))))
+  (testing "falsy values to return nil"
+    (is (nil? (harishchandra false)))
+    (is (nil? (harishchandra nil)))))
+
