@@ -27,7 +27,7 @@
   Falsy values(false and nil) return :ashwathama"
   {:level        :easy
    :use          '[if-let]
-   :implemented? false}
+   :implemented? true}
   [x] (if-let [value x] x :ashwathama))
 
 (defn duplicate-first
@@ -36,8 +36,8 @@
   {:level        :easy
    :use          '[when-first concat]
    :alternates   '[empty? seq? conj into]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll] (when-first [x coll] (concat (list x) coll)))
 
 (defn five-point-someone
   "Returns :chetan-bhagat if y is 5.
