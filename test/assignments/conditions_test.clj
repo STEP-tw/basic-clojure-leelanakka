@@ -28,3 +28,18 @@
     (is (= :ashwathama (yudishtira false)))
     (is (= :ashwathama (yudishtira nil)))))
 
+(deftest duplicate-first-test
+  (testing "non empty coll"
+    (is (= [1 1 2] (duplicate-first [1 2]))))
+  (testing "empty coll"
+    (is (= nil (duplicate-first [])))))
+
+(deftest five-point-someone-test
+  (testing "return :chetan-bhagat"
+    (is (= :chetan-bhagat (five-point-someone 4 5))))
+  (testing "return :satan-bhagat"
+    (is (= :satan-bhagat (five-point-someone 5 9))))
+  (testing "return :greece"
+    (is (= :greece (five-point-someone 6 4))))
+  (testing "return :universe"
+    (is (= :universe (five-point-someone 8 8)))))
