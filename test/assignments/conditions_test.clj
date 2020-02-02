@@ -4,29 +4,29 @@
 
 (deftest safe-division
   (testing "non zero denominator"
-    (is (= 2 (safe-divide 4 2))))
+           (is (= 2 (safe-divide 4 2))))
   (testing "zero denominator"
-    (is (nil? (safe-divide 3 0)))))
+           (is (nil? (safe-divide 3 0)))))
 
 (deftest informative-division
   (testing "non zero denominator"
-    (is (= 5 (informative-divide 10 2))))
+           (is (= 5 (informative-divide 10 2))))
   (testing "zero denominator"
-    (is (= :infinite? (informative-divide 2 0)))))
+           (is (= :infinite? (informative-divide 2 0)))))
 
 (deftest harishchandra-test
   (testing "truthy values to return themselves"
-    (is (= 2 (harishchandra 2))))
+           (is (= 2 (harishchandra 2))))
   (testing "falsy values to return nil"
-    (is (nil? (harishchandra false)))
-    (is (nil? (harishchandra nil)))))
+           (is (nil? (harishchandra false)))
+           (is (nil? (harishchandra nil)))))
 
 (deftest yudishtira-test
   (testing "truthy values to return themselves"
-    (is (= 2 (yudishtira 2))))
+           (is (= 2 (yudishtira 2))))
   (testing "falsy values to return nil"
-    (is (= :ashwathama (yudishtira false)))
-    (is (= :ashwathama (yudishtira nil)))))
+           (is (= :ashwathama (yudishtira false)))
+           (is (= :ashwathama (yudishtira nil)))))
 
 (deftest duplicate-first-test
   (testing "non empty coll"
@@ -38,13 +38,13 @@
 
 (deftest five-point-someone-test
   (testing "return :chetan-bhagat"
-    (is (= :chetan-bhagat (five-point-someone 4 5))))
+           (is (= :chetan-bhagat (five-point-someone 4 5))))
   (testing "return :satan-bhagat"
-    (is (= :satan-bhagat (five-point-someone 5 9))))
+           (is (= :satan-bhagat (five-point-someone 5 9))))
   (testing "return :greece"
-    (is (= :greece (five-point-someone 6 4))))
+           (is (= :greece (five-point-someone 6 4))))
   (testing "return :universe"
-    (is (= :universe (five-point-someone 8 8)))))
+           (is (= :universe (five-point-someone 8 8)))))
 
 (deftest repeat-and-truncate-test
   (testing "for false repeat and false truncate"

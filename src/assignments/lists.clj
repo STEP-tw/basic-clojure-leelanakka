@@ -15,7 +15,7 @@
       (println element "elemtnts")
       (if (empty? collection)
         result
-        (recur (conj result (f  element)) (rest collection))))))
+        (recur (conj result (f element)) (rest collection))))))
 
 (defn filter'
   "Implement a non-lazy version of filter that accepts a
@@ -241,7 +241,8 @@
    :use          '[map constantly let]
    :implemented? true}
   [coll]
-  (let [first-element (first coll)] (map (constantly (* first-element first-element)) coll)))
+  (let [first-element (first coll)]
+    (map (constantly (* first-element first-element)) coll)))
 
 (defn russian-dolls
   "Given a collection and a number, wrap each element in a nested vector
