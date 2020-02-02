@@ -8,13 +8,14 @@
    :use          '[loop recur]
    :dont-use     '[map]
    :implemented? true}
-  [predicate colls]
+  [f & colls]
   (loop [result     []
-         collection colls]
+         collection (first colls)]
     (let [element (first collection)]
+      (println element "elemtnts")
       (if (empty? collection)
         result
-        (recur (conj result (predicate element)) (rest collection))))))
+        (recur (conj result (f  element)) (rest collection))))))
 
 (defn filter'
   "Implement a non-lazy version of filter that accepts a
@@ -227,9 +228,9 @@
   [coll]
   (filter some?
           (map-indexed
-            (fn [x y]
-              (when (and (not= 0 x) (or (zero? (rem x 3)) (zero? (rem x 5)))) y))
-            coll)))
+           (fn [x y]
+             (when (and (not= 0 x) (or (zero? (rem x 3)) (zero? (rem x 5)))) y))
+           coll)))
 
 (defn sqr-of-the-first
   "Given a collection, return a new collection that contains the
@@ -238,9 +239,9 @@
   [4 5 6] => [16 16 16]"
   {:level        :easy
    :use          '[map constantly let]
-   :implemented? false}
+   :implemented? true}
   [coll]
-  ())
+  (let [first-element (first coll)] (map (constantly (* first-element first-element)) coll)))
 
 (defn russian-dolls
   "Given a collection and a number, wrap each element in a nested vector
