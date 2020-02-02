@@ -7,8 +7,14 @@
   {:level        :medium
    :use          '[loop recur]
    :dont-use     '[map]
-   :implemented? false}
-  [f & colls])
+   :implemented? true}
+  [predicate colls]
+  (loop [result     []
+         collection colls]
+    (let [element (first collection)]
+      (if (empty? collection)
+        result
+        (recur (conj result (predicate element)) (rest collection))))))
 
 (defn filter'
   "Implement a non-lazy version of filter that accepts a
@@ -17,8 +23,14 @@
   {:level        :easy
    :use          '[loop recur]
    :dont-use     '[filter]
-   :implemented? false}
-  [pred coll])
+   :implemented? true}
+  [pred coll]
+  (loop [result     []
+         collection coll]
+    (let [element (first collection)]
+      (if (empty? collection)
+        result
+        (recur (if (true? (pred element)) (conj result element) result) (rest collection))))))
 
 (defn reduce'
   "Implement your own multi-arity version of reduce
@@ -37,8 +49,12 @@
   {:level        :easy
    :use          '[loop recur]
    :dont-use     '[count]
-   :implemented? false}
-  ([coll]))
+   :implemented? true}
+  [coll] (loop [collection coll
+                count 0]
+             (if (empty? collection)
+               count
+               (recur (rest collection) (inc count)))))
 
 (defn reverse'
   "Implement your own version of reverse that reverses a coll.
@@ -46,8 +62,9 @@
   {:level        :easy
    :use          '[reduce conj seqable? when]
    :dont-use     '[reverse]
-   :implemented? false}
-  ([coll]))
+   :implemented? true}
+  [coll](when (seqable? coll)
+          (reduce (fn [x y] (conj x y)) '() coll)))
 
 (defn every?'
   "Implement your own version of every? that checks if every
@@ -55,8 +72,12 @@
   {:level        :easy
    :use          '[loop recur and]
    :dont-use     '[every?]
-   :implemented? false}
-  ([pred coll]))
+   :implemented? true}
+  [pred coll](loop [accumalator true
+                     collection coll]
+               (if (empty? collection)
+                 accumalator
+                 (recur (and accumalator (pred (first collection))) (rest collection)))))
 
 (defn some?'
   "Implement your own version of some that checks if at least one
@@ -66,16 +87,21 @@
   {:level        :easy
    :use          '[loop recur or]
    :dont-use     '[some]
-   :implemented? false}
-  ([pred coll]))
+   :implemented? true}
+  [pred coll] (loop [accumalator false
+                      collection coll]
+                (if (empty? collection)
+                  (if (false? accumalator) nil accumalator)
+                  (recur (or accumalator (pred (first collection)))
+                    (rest collection)))))
 
 (defn ascending?
   "Verify if every element is greater than or equal to its predecessor"
   {:level        :easy
    :use          '[partition every? partial apply <=]
    :dont-use     '[loop recur]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll](every? (partial apply <= ) (partition 2 1 coll)))
 
 (defn distinct'
   "Implement your own lazy sequence version of distinct which returns
@@ -103,8 +129,8 @@
   {:level        :medium
    :use          '[map + rest]
    :dont-use     '[loop recur partition]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll] (map + coll (rest coll)))
 
 (defn max-three-digit-sequence
   "Given a collection of numbers, find a three digit sequence that
@@ -121,12 +147,13 @@
 (def
   ^{:level        :easy
     :dont-use     '[loop recur for nth get]
-    :implemented? false}
+    :implemented? true}
   transpose
   "Transposes a given matrix.
   [[a b] [c d]] => [[a c] [b d]].
   Note this is a def. Not a defn.
-  Return a vector of vectors, not list of vectors or vectors of lists")
+  Return a vector of vectors, not list of vectors or vectors of lists"
+  (partial apply mapv vector))
 
 (defn difference
   "Given two collections, returns only the elements that are present
@@ -134,8 +161,8 @@
   {:level        :easy
    :use          '[remove set]
    :dont-use     '[loop recur if]
-   :implemented? false}
-  [coll1 coll2])
+   :implemented? true}
+  [coll1 coll2] (remove (fn [x] (contains? (set coll1) x)) coll2))
 
 (defn union
   "Given two collections, returns a new collection with elements from the second
@@ -144,8 +171,10 @@
   if elements repeat."
   {:level        :easy
    :use          '[remove into set ->>]
-   :implemented? false}
-  [coll1 coll2])
+   :implemented? true}
+  [coll1 coll2](->> coll2
+                    (difference coll1)
+                    (into (set coll1))))
 
 ;; points-around-origin is a def not a defn
 (def
@@ -165,16 +194,17 @@
   [[1 4] [1 3] [1 5] [2 4] [2 3] [2 5] [3 4]]"
   {:level        :easy
    :use          '[for]
-   :implemented? false}
-  [seq1 seq2])
+   :implemented? true}
+  [seq1 seq2] (for [x seq1
+                     y seq2 :while (not= x y)] [x y]))
 
 (defn double-up
   "Given a collection, return a new collection that contains
   each element repeated twice"
   {:level        :easy
    :use          '[mapcat partial repeat :optionally vector]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll](mapcat (partial repeat 2) coll))
 
 (defn third-or-fifth
   "Given a collection return a new collection that contains
@@ -182,7 +212,9 @@
   {:level        :easy
    :use          '[keep-indexed when :optionally map-indexed filter]
    :implemented? false}
-  [coll])
+  [coll] (filter some?
+                 (map-indexed (fn [x y]
+                                (when (and (not= 0 x) (or (zero? (rem x 3)) (zero? (rem x 5)))) y)) coll)))
 
 (defn sqr-of-the-first
   "Given a collection, return a new collection that contains the

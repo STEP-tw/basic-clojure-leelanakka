@@ -46,7 +46,7 @@
   Otherwise it returns :universe"
   {:level        :easy
    :use          '[cond]
-   :implemented? false}
+   :implemented? true}
   [x y] (cond
           (= y 5) :chetan-bhagat
           (= x 5) :satan-bhagat
@@ -62,7 +62,7 @@
   {:level        :medium
    :use          '[condp filter]
    :alternates   '[if cond]
-   :implemented? false}
+   :implemented? true}
   [coll] (condp filter coll
            (contains? 1 3) :wonder-woman
            (contains? [:a :b :c]) :durga
@@ -96,7 +96,7 @@
   [x y z] (cond-> []
             (> x y) (conj :x-greater-than-y)
             (> y z) (conj :y-greater-than-z)
-            (> z x) (conj ::z-greater-than-x)))
+            (> z x) (conj :z-greater-than-x)))
 
 (defn zero-aliases
   "Given a zero-like value(0,[],(),#{},{}) should
