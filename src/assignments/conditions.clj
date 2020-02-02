@@ -63,7 +63,11 @@
    :use          '[condp filter]
    :alternates   '[if cond]
    :implemented? false}
-  [coll])
+  [coll] (condp filter coll
+           (contains? 1 3) :wonder-woman
+           (contains? [:a :b :c]) :durga
+           (and (contains? [2 3]) (contains? [4 5])) :cleopatra
+           :tuntun   ))
 
 (defn repeat-and-truncate
   "Given coll and options to repeat and truncate
@@ -72,8 +76,13 @@
   (repeat-and-truncate (range 4) true true 6) => '(0 1 2 3 0 1)"
   {:level        :medium
    :use          '[cond->> concat take]
-   :implemented? false}
-  [coll rep? truncate? n])
+   :implemented? true}
+  [coll rep? truncate? n](
+                           cond->> coll
+                           rep? (concat coll)
+                           truncate? (take n)
+                           :else (take n)
+                           ))
 
 (defn order-in-words
   "Given x, y and z, returns a vector consisting of
@@ -83,8 +92,11 @@
   (order-in-words 2 3 4) => [:z-greater-than-x]"
   {:level        :easy
    :use          '[cond-> conj]
-   :implemented? false}
-  [x y z])
+   :implemented? true}
+  [x y z] (cond-> []
+            (> x y) (conj :x-greater-than-y)
+            (> y z) (conj :y-greater-than-z)
+            (> z x) (conj ::z-greater-than-x)))
 
 (defn zero-aliases
   "Given a zero-like value(0,[],(),#{},{}) should
@@ -98,8 +110,15 @@
   \"\"  -> :empty-string"
   {:level        :easy
    :use          '[case]
-   :implemented? false}
-  [zero-like-value])
+   :implemented? true}
+  [zero-like-value] (case zero-like-value
+                      0 :zero
+                      [] :empty
+                      `() :empty
+                      #{} :empty-set
+                      {} :empty-map
+                      "" :empty-string
+                      :non-zero))
 
 (defn zero-separated-palindrome
   "Given a sequence of numbers, increment the list
@@ -108,5 +127,7 @@
   [1 2 3] -> (4 3 2 0 2 3 4)"
   {:level :easy
    :use '[as-> reverse]
-   :implemented? false}
-  [coll])
+   :implemented? true}
+  [coll](as-> coll x
+              (map inc x)
+              (concat (reverse x) (conj x 0))))
