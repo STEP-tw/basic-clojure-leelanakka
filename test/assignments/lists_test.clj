@@ -4,14 +4,14 @@
 
 (deftest lists
   (testing "map"
-    (testing "identity with single coll"
-      (is (= [1 2 3] (map' identity [1 2 3]))))))
+           (testing "identity with single coll"
+                    (is (= [1 2 3] (map' identity [1 2 3]))))))
 
 (deftest filter-test
   (testing "even?"
            (is (= [1 3 3] (filter' odd? [1 2 3 4 6 3]))))
   (testing "odd?"
-           (is (=  [2 4] (filter' even? [1 2 3 4])))))
+           (is (= [2 4] (filter' even? [1 2 3 4])))))
 
 (deftest count-test
   (testing "with empty list"
@@ -65,8 +65,9 @@
   (testing "with empty sequence"
            (is (= [] (cross-product [] []))))
   (testing "with 2 sequences"
-           (is (= [[1 4] [1 3] [1 5] [2 4] [2 3] [2 5] [3 4]]
-                  (cross-product [1 2 3] [4 3 5])))))
+           (is
+             (= [[1 4] [1 3] [1 5] [2 4] [2 3] [2 5] [3 4]]
+                (cross-product [1 2 3] [4 3 5])))))
 
 (deftest double-up-test
   (testing "with empty sequence"
@@ -74,8 +75,9 @@
   (testing "with integer sequence"
            (is (= [1 1 2 2 3 3] (double-up [1 2 3]))))
   (testing "with string sequence"
-           (is (= ["I" "I" "love" "love" "clojure" "clojure"]
-                  (double-up ["I" "love" "clojure"])))))
+           (is
+             (= ["I" "I" "love" "love" "clojure" "clojure"]
+                (double-up ["I" "love" "clojure"])))))
 
 (deftest third-or-fifth-test
   (testing "with single item"
@@ -100,5 +102,4 @@
            (is (= [] (difference [1 2 3] [2 3]))))
   (testing "with 2nd collection having elements after difference"
            (is (= [4] (difference [1 2 3] [2 3 4])))))
-
 
