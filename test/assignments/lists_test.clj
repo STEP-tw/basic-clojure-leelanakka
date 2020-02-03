@@ -103,3 +103,12 @@
   (testing "with 2nd collection having elements after difference"
            (is (= [4] (difference [1 2 3] [2 3 4])))))
 
+(deftest palindrome?-test
+  (testing "with empty collection"
+    (is (true? (palindrome? []))))
+  (testing "with palindrome list"
+    (is (true? (palindrome? [1 2 1]))))
+  (testing "with string"
+    (is (true? (palindrome? "NaN"))))
+  (testing "not a palindrome"
+    (is (false? (palindrome? [1 2 3])))))

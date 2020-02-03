@@ -57,7 +57,7 @@
     (= y 5) :chetan-bhagat
     (= x 5) :satan-bhagat
     (> x y) :greece
-    :else   :universe))
+    :else :universe))
 
 (defn conditions-apply
   "Given a collection of any length, returns:
@@ -70,10 +70,10 @@
    :alternates   '[if cond]
    :implemented? true}
   [coll]
-  (condp filter coll
-    (contains? 1 3)                           :wonder-woman
-    (contains? [:a :b :c])                    :durga
-    (and (contains? [2 3]) (contains? [4 5])) :cleopatra
+  (condp some coll
+    #{1 3} :wonder-woman
+    #{:a :b :c} :durga
+    #{[2 3] [4 5]} :cleopatra
     :tuntun))
 
 (defn repeat-and-truncate
@@ -86,9 +86,9 @@
    :implemented? true}
   [coll rep? truncate? n]
   (cond->> coll
-    rep?      (concat coll)
-    truncate? (take n)
-    :else     (take n)))
+           rep? (concat coll)
+           truncate? (take n)
+           :else (take n)))
 
 (defn order-in-words
   "Given x, y and z, returns a vector consisting of
@@ -101,9 +101,9 @@
    :implemented? true}
   [x y z]
   (cond-> []
-    (> x y) (conj :x-greater-than-y)
-    (> y z) (conj :y-greater-than-z)
-    (> z x) (conj :z-greater-than-x)))
+          (> x y) (conj :x-greater-than-y)
+          (> y z) (conj :y-greater-than-z)
+          (> z x) (conj :z-greater-than-x)))
 
 (defn zero-aliases
   "Given a zero-like value(0,[],(),#{},{}) should
@@ -120,12 +120,12 @@
    :implemented? true}
   [zero-like-value]
   (case zero-like-value
-    0   :zero
-    []  :empty
+    0 :zero
+    [] :empty
     `() :empty
     #{} :empty-set
-    {}  :empty-map
-    ""  :empty-string
+    {} :empty-map
+    "" :empty-string
     :non-zero))
 
 (defn zero-separated-palindrome

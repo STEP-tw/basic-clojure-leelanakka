@@ -274,7 +274,7 @@
    :use          '[map cycle]
    :dont-use     '[loop recur map-indexed take take-nth]
    :implemented? false}
-  [coll])
+  [coll] (map * coll (cycle [1 1 0])))
 
 (defn palindrome?
   "Implement a recursive palindrome check of any given sequence"
@@ -282,7 +282,11 @@
    :use          '[empty? loop recur butlast rest]
    :dont-use     '[reverse]
    :implemented? false}
-  [coll])
+  [coll] (loop [is-palindrome true
+                collection coll]
+           (if (or (empty? collection) (= 1 (count collection)))
+             is-palindrome
+             (recur (= (first collection) (last collection)) (butlast (rest collection))))))
 
 (defn index-of
   "index-of takes a sequence and an element and finds the index
