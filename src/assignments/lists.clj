@@ -284,7 +284,7 @@
    :implemented? false}
   [coll] (loop [is-palindrome true
                 collection coll]
-           (if (or (empty? collection) (= 1 (count collection)))
+           (if (or (empty? collection) (false? is-palindrome))
              is-palindrome
              (recur (= (first collection) (last collection)) (butlast (rest collection))))))
 
