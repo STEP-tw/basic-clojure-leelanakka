@@ -263,7 +263,7 @@
   {:level        :easy
    :use          '[interleave split-at if rem concat take-last]
    :dont-use     '[loop recur map-indexed take drop]
-   :implemented? false}
+   :implemented? true}
   [coll] (if (even? (count coll))
            (interleave
            (first (split-at (/ (count coll) 2) coll))
