@@ -251,7 +251,7 @@
   {:level        :medium
    :use          '[iterate mapv partial vector drop first ->>]
    :dont-use     '[for loop recur reduce]
-   :implemented? false}
+   :implemented? true}
   [coll nesting-factor](mapv
                          (fn [x] (last
                                    (take nesting-factor (iterate vector x))
