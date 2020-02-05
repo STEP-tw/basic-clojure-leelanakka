@@ -9,7 +9,7 @@
    :dont-use     '[map]
    :implemented? true}
   [f & colls]
-  (loop [result     []
+  (loop [result []
          collection (first colls)]
     (let [element (first collection)]
       (println element "elemtnts")
@@ -26,7 +26,7 @@
    :dont-use     '[filter]
    :implemented? true}
   [pred coll]
-  (loop [result     []
+  (loop [result []
          collection coll]
     (let [element (first collection)]
       (if (empty? collection)
@@ -53,7 +53,7 @@
    :implemented? true}
   [coll]
   (loop [collection coll
-         count      0]
+         count 0]
     (if (empty? collection)
       count
       (recur (rest collection) (inc count)))))
@@ -94,11 +94,11 @@
    :implemented? true}
   [pred coll]
   (loop [accumalator false
-         collection  coll]
+         collection coll]
     (if (empty? collection)
       (when-not (false? accumalator) accumalator)
       (recur (or accumalator (pred (first collection)))
-        (rest collection)))))
+             (rest collection)))))
 
 (defn ascending?
   "Verify if every element is greater than or equal to its predecessor"
@@ -205,8 +205,8 @@
    :use          '[for]
    :implemented? true}
   [seq1 seq2]
-  (for [x      seq1
-        y      seq2
+  (for [x seq1
+        y seq2
         :while (not= x y)]
     [x y]))
 
@@ -228,9 +228,9 @@
   [coll]
   (filter some?
           (map-indexed
-           (fn [x y]
-             (when (and (not= 0 x) (or (zero? (rem x 3)) (zero? (rem x 5)))) y))
-           coll)))
+            (fn [x y]
+              (when (and (not= 0 x) (or (zero? (rem x 3)) (zero? (rem x 5)))) y))
+            coll)))
 
 (defn sqr-of-the-first
   "Given a collection, return a new collection that contains the
@@ -264,13 +264,18 @@
    :use          '[interleave split-at if rem concat take-last]
    :dont-use     '[loop recur map-indexed take drop]
    :implemented? true}
-  [coll] (if (even? (count coll))
-           (interleave
-           (first (split-at (/ (count coll) 2) coll))
-           (last (split-at (/ (count coll) 2) coll)))
-           (concat (interleave
-             (first (split-at (dec (/ (count coll) 2)) coll))
-               (last (split-at (dec (/ (count coll) 2)) coll))) (list (last coll)))))
+  [coll] (let [even-spllited-collection
+               (split-at (/ (count coll) 2) coll)
+               odd-splitted-collection
+               (split-at (dec (/ (count coll) 2)) coll)
+               ]
+           (if (even? (count coll))
+             (interleave
+               (first even-spllited-collection)
+               (last even-spllited-collection))
+             (concat (interleave
+                       (first odd-splitted-collection)
+                       (last odd-splitted-collection)) (list (last coll))))))
 
 (defn muted-thirds
   "Given a sequence of numbers, make every third element
@@ -279,7 +284,7 @@
   {:level        :easy
    :use          '[map cycle]
    :dont-use     '[loop recur map-indexed take take-nth]
-                  :implemented? true}
+   :implemented? true}
   [coll] (map * coll (cycle [1 1 0])))
 
 (defn palindrome?
