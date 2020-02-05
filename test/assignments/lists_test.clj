@@ -112,3 +112,9 @@
     (is (true? (palindrome? "NaN"))))
   (testing "not a palindrome"
     (is (false? (palindrome? [1 2 3])))))
+
+(deftest split-comb-test
+  (testing "with even sequence"
+    (is (= [1 3 2 4] (split-comb [1 2 3 4]))))
+  (testing "with odd sequence"
+    (is (= [1 3 2 4 5] (split-comb [1 2 3 4 5])))))
