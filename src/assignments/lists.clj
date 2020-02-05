@@ -78,7 +78,7 @@
    :implemented? true}
   [pred coll]
   (loop [accumalator true
-         collection  coll]
+         collection coll]
     (if (empty? collection)
       accumalator
       (recur (and accumalator (pred (first collection))) (rest collection)))))
@@ -273,7 +273,7 @@
   {:level        :easy
    :use          '[map cycle]
    :dont-use     '[loop recur map-indexed take take-nth]
-   :implemented? false}
+                  :implemented? true}
   [coll] (map * coll (cycle [1 1 0])))
 
 (defn palindrome?
@@ -281,7 +281,7 @@
   {:level        :easy
    :use          '[empty? loop recur butlast rest]
    :dont-use     '[reverse]
-   :implemented? false}
+   :implemented? true}
   [coll] (loop [is-palindrome true
                 collection coll]
            (if (or (empty? collection) (false? is-palindrome))
@@ -295,8 +295,14 @@
   {:level        :easy
    :use          '[loop recur rest]
    :dont-use     '[.indexOf memfn]
-   :implemented? false}
-  [coll n])
+   :implemented? true}
+  [coll n] (loop [collection {:coll coll :index 0}
+                  index -1]
+             (let [coll coll]
+               (if (empty? collection)
+                 (if (= n (last coll)) index -1)
+                 (recur (if (= n (first collection)) [] (rest collection)) (inc index))))))
+
 
 (defn validate-sudoku-grid
   "Given a 9 by 9 sudoku grid, validate it."

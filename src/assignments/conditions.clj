@@ -68,9 +68,9 @@
   {:level        :medium
    :use          '[condp filter]
    :alternates   '[if cond]
-   :implemented? true}
+   :implemented? false}
   [coll]
-  (condp some coll
+  (condp every? coll
     #{1 3} :wonder-woman
     #{:a :b :c} :durga
     #{[2 3] [4 5]} :cleopatra
