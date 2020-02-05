@@ -83,3 +83,15 @@
            (is (= [0] (zero-separated-palindrome []))))
   (testing "non-empty collection"
            (is (= [4 3 2 0 2 3 4] (zero-separated-palindrome [1 2 3])))))
+
+(deftest conditions-apply-test
+  (testing "collection has a single occurrence of 1 and 3 in that order"
+    (is (= :wonder-woman (conditions-apply [0 1 0 3]))))
+  (testing "collection has a single occurrence of :a :b and :c in that order"
+    (is (= :durga (conditions-apply [:a :b :e :c]))))
+  (testing "collection has a single occurrence of [2 3] and [4 5] in that order"
+    (is (= :cleopatra (conditions-apply [[0 0] [2 3] [1 1] [4 5] [5 6]]))))
+  (testing "none of the conditions apply"
+    (is (= :tuntun (conditions-apply [7 8 9]))))
+  (testing "collection has two occurrence of 1 and 3 in that order"
+    (is (= :tuntun (conditions-apply [0 1 3 1 3])))))

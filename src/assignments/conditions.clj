@@ -68,12 +68,12 @@
   {:level        :medium
    :use          '[condp filter]
    :alternates   '[if cond]
-   :implemented? false}
+   :implemented? true}
   [coll]
-  (condp every? coll
-    #{1 3} :wonder-woman
-    #{:a :b :c} :durga
-    #{[2 3] [4 5]} :cleopatra
+  (condp = true
+    (= [1 3] (filter #{1 3} coll)) :wonder-woman
+    (= [:a :b :c] (filter #{:a :b :c} coll)):durga
+    (= [[2 3] [4 5]] (filter #{[2 3] [4 5]} coll)) :cleopatra
     :tuntun))
 
 (defn repeat-and-truncate
