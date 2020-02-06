@@ -148,7 +148,14 @@
    :use          '[map next nnext max-key partial apply + if ->>]
    :dont-use     '[loop recur partition]
    :implemented? false}
-  [coll])
+  [coll] (if (< (count coll) 3) coll
+                                (->> coll
+           (map list (nnext coll) (next coll))
+              (map (fn [x] {(reduce + x) x}))
+              (into {})
+              (apply max-key key)
+              val
+              reverse)))
 
 ;; transpose is a def. Not a defn.
 (def
