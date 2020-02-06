@@ -150,13 +150,11 @@
   [coll] (if
            (< (count coll) 3)
            coll
-           (->> coll
-                (map list (nnext coll) (next coll))
+           (->> (map list coll (next coll) (nnext coll))
                 (map (fn [x] {(reduce + x) x}))
                 (into {})
                 (apply max-key key)
-                val
-                reverse)))
+                val)))
 
 ;; transpose is a def. Not a defn.
 (def
