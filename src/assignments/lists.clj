@@ -12,7 +12,6 @@
   (loop [result []
          collection (first colls)]
     (let [element (first collection)]
-      (println element "elemtnts")
       (if (empty? collection)
         result
         (recur (conj result (f element)) (rest collection))))))
@@ -261,10 +260,11 @@
    :use          '[iterate mapv partial vector drop first ->>]
    :dont-use     '[for loop recur reduce]
    :implemented? true}
-  [coll nesting-factor](mapv
-                         (fn [x] (last
-                                   (take nesting-factor (iterate vector x))
-                                   )) coll))
+  [coll nesting-factor] (mapv
+                         (fn [x]
+                           (last
+                             (take nesting-factor (iterate vector x))))
+                         coll))
 
 (defn split-comb
   "Given a collection, return a new sequence where the first
